@@ -15,4 +15,15 @@
 
 Class::Class() {}
 
+Class::Class(std::string subject, std::string schedule) {
+    this->subject = subject;
+    this->schedule = Schedule(schedule);
+}
+
 Class::~Class() {}
+
+std::string Class::get_subject() { return subject; }
+
+Schedule Class::get_schedule() { return schedule; }
+
+bool Class::operator==(const Class& other) { return subject == other.subject; }

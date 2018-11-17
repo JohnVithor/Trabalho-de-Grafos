@@ -25,11 +25,11 @@
 class Node {
    public:
     Node();
-    Node(Class* m_class);
-    Node(Node &&) = default;
-    Node(const Node &) = default;
-    Node &operator=(Node &&) = default;
-    Node &operator=(const Node &) = default;
+    Node(Class &m_class);
+    Node(Node&&) = default;
+    Node(const Node&) = default;
+    Node& operator=(Node&&) = default;
+    Node& operator=(const Node&) = default;
     ~Node();
 
     bool set_color(int color);
@@ -37,19 +37,21 @@ class Node {
 
     int get_degree();
 
-    Class* get_class();
-    bool set_class(Class* m_class);
+    Class get_class();
+    bool set_class(Class &m_class);
 
-    std::forward_list<Node>* get_neighbors();
+    std::forward_list<Node> get_neighbors();
 
-    bool remove_neighbor(Class* m_class);
-    bool insert_neighbor(Class* m_class);
+    bool remove_neighbor(Node node);
+    bool insert_neighbor(Node node);
+
+    bool operator==(Node other) { return true; }
 
    private:
-    Class *m_class = nullptr;
+    Class m_class;
     int color = -1;
     int degree = -1;
-    std::forward_list<Node>* neighbors = nullptr;
+    std::forward_list<Node> neighbors;
 };
 
 #endif  // INCLUDE_NODE_HPP_

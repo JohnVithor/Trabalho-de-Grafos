@@ -14,6 +14,10 @@
 #ifndef INCLUDE_COLORATION_HPP_
 #define INCLUDE_COLORATION_HPP_
 
+#include <forward_list>
+
+#include "Node.hpp"
+
 /**
  * @brief ...
  *
@@ -27,13 +31,13 @@ class Coloration {
     Coloration &operator=(const Coloration &) = default;
     ~Coloration();
 
-    std::forward_list<std::forward_list<Node>> *get_partitions();
+    std::forward_list<std::forward_list<Node>> get_partitions();
     int get_chromatic_number();
     bool is_valid();
 
    private:
-    Graph *m_graph = nullptr;
-    std::forward_list<std::forward_list<Node>> *m_partitions = nullptr;
+    //Graph *m_graph = nullptr;
+    std::forward_list<std::forward_list<Node>> m_partitions;
 
     int chromatic_number = 0;
 };

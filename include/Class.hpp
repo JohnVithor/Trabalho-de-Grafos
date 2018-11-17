@@ -25,19 +25,21 @@
 class Class {
    public:
     Class();
-    Class(std::string* subject, std::string* schedule);
+    Class(std::string subject, std::string schedule);
     Class(Class&&) = default;
     Class(const Class&) = default;
     Class& operator=(Class&&) = default;
     Class& operator=(const Class&) = default;
     ~Class();
 
-    std::string* get_subject();
-    Schedule* get_schedule();
+    std::string get_subject();
+    Schedule get_schedule();
+
+    bool operator==(const Class& other);
 
    private:
-    std::string* subject = nullptr;
-    Schedule* schedule = nullptr;
+    std::string subject;
+    Schedule schedule;
 };
 
 #endif  // INCLUDE_CLASS_HPP_

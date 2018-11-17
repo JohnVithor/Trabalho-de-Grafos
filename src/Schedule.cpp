@@ -15,4 +15,6 @@
 
 Schedule::Schedule() {}
 
+Schedule::Schedule(std::string s_schedule) {}
+
 Schedule::~Schedule() {}
