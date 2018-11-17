@@ -24,18 +24,30 @@ CFLAGS = -Wall -pedantic -ansi -std=c++11 -I. -I$(INC_DIR)
 
 .PHONY: all clean distclean doxy
 
-all: dir alg
+all: dir graph
 
 debug: CFLAGS += -g -O0 -pg
-debug: dir alg
+debug: dir graph
 
-alg: $(OBJ_DIR)/alg.o $(OBJ_DIR)/main.o
+graph: $(OBJ_DIR)/Schedule.o $(OBJ_DIR)/Class.o $(OBJ_DIR)/Coloration.o $(OBJ_DIR)/Node.o $(OBJ_DIR)/Graph.o $(OBJ_DIR)/main.o 
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/$@ $^
-	@echo ">>> [Executavel alg criado em $(BIN_DIR)]"
+	@echo ">>> [Executavel graph criado em $(BIN_DIR)]"
 
-$(OBJ_DIR)/alg.o: $(SRC_DIR)/alg.cpp $(INC_DIR)/alg.hpp
+$(OBJ_DIR)/Class.o: $(SRC_DIR)/Class.cpp $(INC_DIR)/Class.hpp
 	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
 	
+$(OBJ_DIR)/Coloration.o: $(SRC_DIR)/Coloration.cpp $(INC_DIR)/Coloration.hpp
+	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
+
+$(OBJ_DIR)/Graph.o: $(SRC_DIR)/Graph.cpp $(INC_DIR)/Graph.hpp
+	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
+
+$(OBJ_DIR)/Node.o: $(SRC_DIR)/Node.cpp $(INC_DIR)/Node.hpp
+	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
+
+$(OBJ_DIR)/Schedule.o: $(SRC_DIR)/Schedule.cpp $(INC_DIR)/Schedule.hpp
+	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
+
 $(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp
 	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
 
