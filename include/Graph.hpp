@@ -55,8 +55,11 @@ class Graph {
     int m_size = 0;
 
     Coloration dsatur();
-
+    Node get_greatest_degree_not_colored();
+    Node get_greatest_degree();
+    Node get_greatest_satured_degree_not_colored();
     Coloration m_coloration;
+    int next_color(Node node, Coloration coloration);
 };
 
 #endif  // INCLUDE_GRAPH_HPP_

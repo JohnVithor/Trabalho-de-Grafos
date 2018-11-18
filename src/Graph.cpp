@@ -221,5 +221,107 @@ void Graph::print() {
 
 Coloration Graph::dsatur() {
     Coloration coloration;
+    int count = m_order;
+    Node great = get_greatest_degree();
+    coloration.add_node(0, great);
+    great.set_color(0);
+    --count;
+    while (count > 0) {
+        for (auto neigh : great.get_neighbors()) {
+            if (neigh.get_color() == -1) {
+                neigh.update_dsat();
+            }
+        }
+        great = get_greatest_satured_degree_not_colored();
+        int color = next_color(great, coloration);
+        coloration.add_node(color, great);
+        great.set_color(color);
+        --count;
+    }
+
     return coloration;
+}
+
+Node Graph::get_greatest_degree_not_colored() {
+    bool flag = false;
+    Node great = m_data.front();
+    if (great.get_color() == -1) {
+        flag = true;
+    }
+    for (auto node : m_data) {
+        if (flag && node.get_color() == -1) {
+            great = node;
+            flag = false;
+        }
+        if (node.get_color() == -1 && node.get_degree() > great.get_degree()) {
+            great = node;
+        }
+    }
+    return great;
+}
+
+Node Graph::get_greatest_degree() {
+    Node great = m_data.front();
+    for (auto node : m_data) {
+        if (node.get_degree() > great.get_degree()) {
+            great = node;
+        }
+    }
+    return great;
+}
+
+Node Graph::get_greatest_satured_degree_not_colored() {
+    bool flag = false;
+    Node great = m_data.front();
+    std::forward_list<Node> draw;
+    if (great.get_color() == -1) {
+        flag = true;
+    }
+    for (auto node : m_data) {
+        if (flag && node.get_color() == -1) {
+            great = node;
+            draw.clear();
+            draw.push_front(great);
+            flag = false;
+        }
+        if (node.get_color() == -1) {
+            if (node.get_dsat() > great.get_dsat()) {
+                great = node;
+                draw.clear();
+                draw.push_front(great);
+            } else if (node.get_dsat() == great.get_dsat()) {
+                draw.push_front(node);
+            }
+        }
+    }
+    for (auto n : draw) {
+        if (n.get_degree() > great.get_degree()) {
+            great = n;
+        }
+    }
+    return great;
+}
+
+int Graph::next_color(Node node, Coloration coloration) {
+    bool flag = true;
+    int count = 0;
+    for (auto color : coloration.get_partitions()) {
+        flag = true;
+        for (auto neigh : node.get_neighbors()) {
+            for (auto n : color) {
+                if (n == neigh) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (!flag) {
+                break;
+            }
+        }
+        if (flag) {
+            return count;
+        }
+        ++count;
+    }
+    return count;
 }

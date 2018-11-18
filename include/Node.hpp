@@ -15,6 +15,7 @@
 #define INCLUDE_NODE_HPP_
 
 #include <forward_list>
+#include <map>
 
 #include "Class.hpp"
 
@@ -44,6 +45,8 @@ class Node {
 
     bool remove_neighbor(Node node);
     bool insert_neighbor(Node node);
+    bool update_dsat();
+    int get_dsat();
 
     bool operator==(const Node &other) const {
         return m_class == other.m_class;
@@ -55,7 +58,8 @@ class Node {
    private:
     Class m_class;
     int color = -1;
-    int degree = -1;
+    int degree = 0;
+    int dsat = 0;
     std::forward_list<Node> neighbors;
 };
 

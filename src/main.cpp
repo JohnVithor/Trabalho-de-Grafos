@@ -41,5 +41,15 @@ int main(int argc, char const *argv[]) {
 
     g.insert_edge(c3, c3);
     g.print();
+
+    auto coloration = g.get_coloration();
+    for (auto color : coloration.get_partitions()) {
+        int count = 0;
+        for (auto node : color) {
+            std::cout << "Cor " << count << ": "
+                      << node.get_class().get_subject() << std::endl;
+            ++count;
+        }
+    }
     return 0;
 }
