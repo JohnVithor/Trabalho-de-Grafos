@@ -26,4 +26,9 @@ std::string Class::get_subject() { return subject; }
 
 Schedule Class::get_schedule() { return schedule; }
 
-bool Class::operator==(const Class& other) { return subject == other.subject; }
+bool Class::operator==(const Class& other) const {
+    return subject == other.subject;
+}
+bool Class::operator!=(const Class& other) const {
+    return subject != other.subject;
+}

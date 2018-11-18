@@ -35,7 +35,8 @@ class Class {
     std::string get_subject();
     Schedule get_schedule();
 
-    bool operator==(const Class& other);
+    bool operator==(const Class& other) const;
+    bool operator!=(const Class& other) const;
 
    private:
     std::string subject;

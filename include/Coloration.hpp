@@ -35,10 +35,15 @@ class Coloration {
     int get_chromatic_number();
     bool is_valid();
 
-   private:
-    //Graph *m_graph = nullptr;
-    std::forward_list<std::forward_list<Node>> m_partitions;
+    bool add_node(int color, Node node);
 
+    bool operator==(Coloration other) {
+        return m_partitions == other.m_partitions;
+    }
+
+   private:
+    // Graph *m_graph = nullptr;
+    std::forward_list<std::forward_list<Node>> m_partitions;
     int chromatic_number = 0;
 };
 

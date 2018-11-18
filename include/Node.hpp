@@ -26,10 +26,10 @@ class Node {
    public:
     Node();
     Node(Class &m_class);
-    Node(Node&&) = default;
-    Node(const Node&) = default;
-    Node& operator=(Node&&) = default;
-    Node& operator=(const Node&) = default;
+    Node(Node &&) = default;
+    Node(const Node &) = default;
+    Node &operator=(Node &&) = default;
+    Node &operator=(const Node &) = default;
     ~Node();
 
     bool set_color(int color);
@@ -45,7 +45,12 @@ class Node {
     bool remove_neighbor(Node node);
     bool insert_neighbor(Node node);
 
-    bool operator==(Node other) { return true; }
+    bool operator==(const Node &other) const {
+        return m_class == other.m_class;
+    }
+    bool operator!=(const Node &other) const {
+        return m_class != other.m_class;
+    }
 
    private:
     Class m_class;

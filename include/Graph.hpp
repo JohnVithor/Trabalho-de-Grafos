@@ -54,6 +54,8 @@ class Graph {
     int m_order = 0;
     int m_size = 0;
 
+    Coloration dsatur();
+
     Coloration m_coloration;
 };
 
