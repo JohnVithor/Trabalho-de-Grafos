@@ -17,7 +17,7 @@ Coloration::Coloration() {}
 
 Coloration::~Coloration() {}
 
-std::forward_list<std::forward_list<Node>> Coloration::get_partitions() {
+std::forward_list<std::forward_list<Node*>*> Coloration::get_partitions() {
     return m_partitions;
 }
 
@@ -25,10 +25,10 @@ int Coloration::get_chromatic_number() { return chromatic_number; }
 
 bool Coloration::is_valid() { return false; }
 
-bool Coloration::add_node(int color, Node node) {
+bool Coloration::add_node(int color, Node *node) {
     if (chromatic_number <= color) {
-        std::forward_list<Node> new_color;
-        new_color.push_front(node);
+        std::forward_list<Node*> *new_color = new std::forward_list<Node*>();
+        new_color->push_front(node);
         m_partitions.push_front(new_color);
         ++chromatic_number;
         return true;
@@ -36,7 +36,7 @@ bool Coloration::add_node(int color, Node node) {
     int count = 0;
     for (auto color_at : m_partitions) {
         if (count == color) {
-            color_at.push_front(node);
+            color_at->push_front(node);
             return true;
         }
         ++count;

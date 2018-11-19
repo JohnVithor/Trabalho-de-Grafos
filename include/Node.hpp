@@ -23,10 +23,11 @@
  * @brief ...
  *
  */
-class Node {
-   public:
+class Node
+{
+  public:
     Node();
-    Node(Class &m_class);
+    Node(Class *m_class);
     Node(Node &&) = default;
     Node(const Node &) = default;
     Node &operator=(Node &&) = default;
@@ -38,29 +39,31 @@ class Node {
 
     int get_degree();
 
-    Class get_class();
-    bool set_class(Class &m_class);
+    Class *get_class();
+    bool set_class(Class *m_class);
 
-    std::forward_list<Node> get_neighbors();
+    std::forward_list<Node *> get_neighbors();
 
-    bool remove_neighbor(Node node);
-    bool insert_neighbor(Node node);
+    bool remove_neighbor(Node *node);
+    bool insert_neighbor(Node *node);
     bool update_dsat();
     int get_dsat();
 
-    bool operator==(const Node &other) const {
+    bool operator==(const Node &other) const
+    {
         return m_class == other.m_class;
     }
-    bool operator!=(const Node &other) const {
+    bool operator!=(const Node &other) const
+    {
         return m_class != other.m_class;
     }
 
-   private:
-    Class m_class;
+  private:
+    Class *m_class;
     int color = -1;
     int degree = 0;
     int dsat = 0;
-    std::forward_list<Node> neighbors;
+    std::forward_list<Node *> neighbors;
 };
 
-#endif  // INCLUDE_NODE_HPP_
+#endif // INCLUDE_NODE_HPP_
