@@ -7,8 +7,8 @@
  * @author      João Vítor (jv.venceslau.c@gmail.com)
  * @author      ...
  * @since       02/11/2018
- * @date        02/11/2018
- * @version     0.1
+ * @date        19/11/2018
+ * @version     0.2
  */
 
 #include "Graph.hpp"

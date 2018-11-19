@@ -7,8 +7,8 @@
  * @author      João Vítor (jv.venceslau.c@gmail.com)
  * @author      ...
  * @since       02/11/2018
- * @date        04/11/2018
- * @version     0.1
+ * @date        19/11/2018
+ * @version     0.2
  */
 
 #ifndef INCLUDE_GRAPH_HPP_
@@ -50,7 +50,7 @@ class Graph {
     void print();
 
    private:
-    std::forward_list<Node*> m_data;
+    std::forward_list<Node *> m_data;
     int m_order = 0;
     int m_size = 0;
 

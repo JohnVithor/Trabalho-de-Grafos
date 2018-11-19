@@ -7,8 +7,8 @@
  * @author      João Vítor (jv.venceslau.c@gmail.com)
  * @author      ...
  * @since       04/11/2018
- * @date        04/11/2018
- * @version     0.1
+ * @date        19/11/2018
+ * @version     0.2
  */
 
 #ifndef INCLUDE_COLORATION_HPP_
@@ -22,9 +22,8 @@
  * @brief ...
  *
  */
-class Coloration
-{
-  public:
+class Coloration {
+   public:
     Coloration();
     Coloration(Coloration &&) = default;
     Coloration(const Coloration &) = default;
@@ -32,21 +31,20 @@ class Coloration
     Coloration &operator=(const Coloration &) = default;
     ~Coloration();
 
-    std::forward_list<std::forward_list<Node *>*> get_partitions();
+    std::forward_list<std::forward_list<Node *> *> get_partitions();
     int get_chromatic_number();
     bool is_valid();
 
     bool add_node(int color, Node *node);
 
-    bool operator==(const Coloration &other) const
-    {
+    bool operator==(const Coloration &other) const {
         return m_partitions == other.m_partitions;
     }
 
-  private:
+   private:
     // Graph *m_graph = nullptr;
-    std::forward_list<std::forward_list<Node *>*> m_partitions;
+    std::forward_list<std::forward_list<Node *> *> m_partitions;
     int chromatic_number = 0;
 };
 
-#endif // INCLUDE_COLORATION_HPP_
+#endif  // INCLUDE_COLORATION_HPP_

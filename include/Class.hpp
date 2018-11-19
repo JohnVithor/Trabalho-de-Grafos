@@ -7,8 +7,8 @@
  * @author      João Vítor (jv.venceslau.c@gmail.com)
  * @author      ...
  * @since       04/11/2018
- * @date        04/11/2018
- * @version     0.1
+ * @date        19/11/2018
+ * @version     0.2
  */
 
 #ifndef INCLUDE_CLASS_HPP_

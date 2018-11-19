@@ -7,8 +7,8 @@
  * @author      João Vítor (jv.venceslau.c@gmail.com)
  * @author      ...
  * @since       04/11/2018
- * @date        04/11/2018
- * @version     0.1
+ * @date        19/11/2018
+ * @version     0.2
  */
 
 #ifndef INCLUDE_NODE_HPP_
@@ -23,9 +23,8 @@
  * @brief ...
  *
  */
-class Node
-{
-  public:
+class Node {
+   public:
     Node();
     Node(Class *m_class);
     Node(Node &&) = default;
@@ -49,16 +48,14 @@ class Node
     bool update_dsat();
     int get_dsat();
 
-    bool operator==(const Node &other) const
-    {
+    bool operator==(const Node &other) const {
         return m_class == other.m_class;
     }
-    bool operator!=(const Node &other) const
-    {
+    bool operator!=(const Node &other) const {
         return m_class != other.m_class;
     }
 
-  private:
+   private:
     Class *m_class;
     int color = -1;
     int degree = 0;
@@ -66,4 +63,4 @@ class Node
     std::forward_list<Node *> neighbors;
 };
 
-#endif // INCLUDE_NODE_HPP_
+#endif  // INCLUDE_NODE_HPP_
