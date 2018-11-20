@@ -23,11 +23,13 @@ int main(int argc, char const *argv[]) {
     Graph g;
     std::string horario = "35M34";
     std::string horario2 = "46M34";
+
+    /*
     Schedule t1(horario);
     Schedule t2(horario2);
     std::cout << t1.intersection(&t2) << std::endl;
     return 1;
-
+    */
     std::string x[] = {"x1", "x2", "x3", "x4", "x5",
                        "x6", "x7", "x8", "x9", "x10"};
 
@@ -68,9 +70,9 @@ int main(int argc, char const *argv[]) {
     g.insert_edge(&c[8], &c[9]);
 
     g.print();
-    // auto coloration = g.get_coloration();
-    g.get_coloration();
+    Coloration *coloration = g.get_coloration();
     g.print_colors();
+    coloration->print();
 
     return 0;
 }

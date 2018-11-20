@@ -235,9 +235,7 @@ Coloration *Graph::dsatur() {
     coloration->add_node(0, great);
     great->set_color(0);
     --count;
-    std::cout << great->get_class()->get_subject() << " 0" << std::endl;
-    print_colors();
-    coloration->print();
+    // std::cout << great->get_class()->get_subject() << " 0" << std::endl;
     while (count > 0) {
         for (auto neigh : great->get_neighbors()) {
             if (neigh->get_color() == -1) {
@@ -250,14 +248,12 @@ Coloration *Graph::dsatur() {
 
         int color = next_color(great, coloration);
 
-        std::cout << great->get_class()->get_subject() << " " << color
-                  << std::endl;
+        // std::cout << great->get_class()->get_subject() << " " << color
+        //           << std::endl;
 
         coloration->add_node(color, great);
         great->set_color(color);
         --count;
-        print_colors();
-        coloration->print();
     }
 
     return coloration;
