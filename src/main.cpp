@@ -62,20 +62,11 @@ int main(int argc, char const *argv[]) {
     g.insert_edge(&c[7], &c[8]);
 
     g.insert_edge(&c[8], &c[9]);
-    
+
     g.print();
-
-    auto coloration = g.get_coloration();
-    /*
-    for (auto color : coloration->get_partitions()) {
-        int count = 0;
-        for (auto node : *color) {
-            std::cout << "Cor " << count << ": "
-                      << node->get_class()->get_subject() << std::endl;
-            ++count;
-        }
-    }*/
-
+    // auto coloration = g.get_coloration();
+    g.get_coloration();
     g.print_colors();
+    
     return 0;
 }
