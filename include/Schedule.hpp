@@ -7,14 +7,15 @@
  * @author      João Vítor (jv.venceslau.c@gmail.com)
  * @author      ...
  * @since       04/11/2018
- * @date        04/11/2018
- * @version     0.1
+ * @date        20/11/2018
+ * @version     0.2
  */
 
 #ifndef INCLUDE_SCHEDULE_HPP_
 #define INCLUDE_SCHEDULE_HPP_
 
 #include <string>
+#include <iostream>
 
 /**
  * @brief ...
@@ -31,8 +32,9 @@ class Schedule {
     ~Schedule();
 
     bool intersection(Schedule *schedule);
-
+    void print();
    private:
+    std::string m_schedule;
     bool m_days[7] = {false, false, false, false, false, false, false};
     bool m_shift[3] = {false, false, false};
     bool m_class[6] = {false, false, false, false, false, false};

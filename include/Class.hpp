@@ -33,7 +33,7 @@ class Class {
     ~Class();
 
     std::string get_subject();
-    Schedule get_schedule();
+    Schedule& get_schedule();
 
     bool operator==(const Class& other) const;
     bool operator!=(const Class& other) const;
