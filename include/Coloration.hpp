@@ -15,6 +15,7 @@
 #define INCLUDE_COLORATION_HPP_
 
 #include <forward_list>
+#include <iostream>
 
 #include "Node.hpp"
 
@@ -34,7 +35,7 @@ class Coloration {
     std::forward_list<std::forward_list<Node *> *> get_partitions();
     int get_chromatic_number();
     bool is_valid();
-
+    void print();
     bool add_node(int color, Node *node);
 
     bool operator==(const Coloration &other) const {

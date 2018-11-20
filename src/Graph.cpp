@@ -235,17 +235,29 @@ Coloration *Graph::dsatur() {
     coloration->add_node(0, great);
     great->set_color(0);
     --count;
+    std::cout << great->get_class()->get_subject() << " 0" << std::endl;
+    print_colors();
+    coloration->print();
     while (count > 0) {
         for (auto neigh : great->get_neighbors()) {
             if (neigh->get_color() == -1) {
                 neigh->update_dsat();
             }
         }
+        // print_dsat();
+
         great = get_greatest_satured_degree_not_colored();
+
         int color = next_color(great, coloration);
+
+        std::cout << great->get_class()->get_subject() << " " << color
+                  << std::endl;
+
         coloration->add_node(color, great);
         great->set_color(color);
         --count;
+        print_colors();
+        coloration->print();
     }
 
     return coloration;
@@ -273,7 +285,7 @@ Node *Graph::get_greatest_degree_not_colored() {
 Node *Graph::get_greatest_degree() {
     Node *great = m_data.front();
     for (auto node : m_data) {
-        if (node->get_degree() > great->get_degree()) {
+        if (node->get_degree() >= great->get_degree()) {
             great = node;
         }
     }
@@ -332,4 +344,18 @@ int Graph::next_color(Node *node, Coloration *coloration) {
         ++count;
     }
     return count;
+}
+
+void Graph::print_colors() {
+    for (auto node : m_data) {
+        std::cout << node->get_class()->get_subject() << " : "
+                  << node->get_color() << std::endl;
+    }
+}
+
+void Graph::print_dsat() {
+    for (auto node : m_data) {
+        std::cout << node->get_class()->get_subject() << " : "
+                  << node->get_dsat() << std::endl;
+    }
 }

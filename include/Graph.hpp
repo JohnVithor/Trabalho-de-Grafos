@@ -48,6 +48,8 @@ class Graph {
     bool erase_coloration();
 
     void print();
+    void print_colors();
+    void print_dsat();
 
    private:
     std::forward_list<Node *> m_data;

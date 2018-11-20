@@ -43,3 +43,15 @@ bool Coloration::add_node(int color, Node *node) {
     }
     return false;
 }
+
+void Coloration::print() {
+    for (auto color : m_partitions) {
+        int count = 0;
+        for (auto node : *color) {
+            std::cout << "Cor " << count << ": "
+                      << node->get_class()->get_subject() << " ";
+            ++count;
+        }
+        std::cout << std::endl;
+    }
+}

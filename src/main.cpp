@@ -23,42 +23,50 @@ int main(int argc, char const *argv[]) {
     Graph g;
     std::string horario = "35M34";
 
-    std::string t1 = "c1";
-    std::string t2 = "c2";
-    std::string t3 = "c3";
-    std::string t4 = "c4";
-    std::string t5 = "c5";
-    std::string t6 = "c6";
+    std::string x[] = {"x1", "x2", "x3", "x4", "x5",
+                       "x6", "x7", "x8", "x9", "x10"};
+    ;
 
-    Class c1 = Class(t1, horario);
-    Class c2 = Class(t2, horario);
-    Class c3 = Class(t3, horario);
-    Class c4 = Class(t4, horario);
-    Class c5 = Class(t5, horario);
-    Class c6 = Class(t6, horario);
+    Class c[10];
 
-    g.insert_edge(&c1, &c2);
-    g.print();
+    for (size_t i = 0; i < 10; ++i) {
+        c[i] = Class(x[i], horario);
+    }
 
-    g.insert_edge(&c1, &c2);
-    g.print();
+    g.insert_edge(&c[0], &c[1]);
+    g.insert_edge(&c[0], &c[2]);
+    g.insert_edge(&c[0], &c[3]);
+    g.insert_edge(&c[0], &c[4]);
+    g.insert_edge(&c[0], &c[8]);
 
-    g.insert_edge(&c3, &c3);
-    g.print();
+    g.insert_edge(&c[1], &c[2]);
+    g.insert_edge(&c[1], &c[3]);
+    g.insert_edge(&c[1], &c[8]);
+    g.insert_edge(&c[1], &c[9]);
 
-    g.insert_edge(&c4, &c2);
-    g.print();
+    g.insert_edge(&c[2], &c[4]);
 
-    g.insert_edge(&c5, &c1);
-    g.print();
+    g.insert_edge(&c[3], &c[4]);
+    g.insert_edge(&c[3], &c[6]);
 
-    g.insert_edge(&c6, &c1);
-    g.print();
+    g.insert_edge(&c[4], &c[5]);
+    g.insert_edge(&c[4], &c[6]);
+    g.insert_edge(&c[4], &c[7]);
 
-    g.insert_edge(&c3, &c6);
+    g.insert_edge(&c[5], &c[7]);
+    g.insert_edge(&c[5], &c[8]);
+
+    g.insert_edge(&c[6], &c[8]);
+    g.insert_edge(&c[6], &c[9]);
+
+    g.insert_edge(&c[7], &c[8]);
+
+    g.insert_edge(&c[8], &c[9]);
+    
     g.print();
 
     auto coloration = g.get_coloration();
+    /*
     for (auto color : coloration->get_partitions()) {
         int count = 0;
         for (auto node : *color) {
@@ -66,6 +74,8 @@ int main(int argc, char const *argv[]) {
                       << node->get_class()->get_subject() << std::endl;
             ++count;
         }
-    }
+    }*/
+
+    g.print_colors();
     return 0;
 }
