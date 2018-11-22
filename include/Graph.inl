@@ -7,8 +7,8 @@
  * @author      João Vítor (jv.venceslau.c@gmail.com)
  * @author      ...
  * @since       02/11/2018
- * @date        20/11/2018
- * @version     0.3
+ * @date        22/11/2018
+ * @version     0.4
  */
 
 #include "Graph.hpp"
@@ -332,7 +332,7 @@ Node<T> *Graph<T>::get_greatest_satured_degree_not_colored() {
         }
     }
     for (auto n : draw) {
-        if (n->get_degree() >= great->get_degree()) {
+        if (get_degree_no_colored(n) >= get_degree_no_colored(great)) {
             great = n;
         }
     }
@@ -367,7 +367,7 @@ int Graph<T>::next_color(Node<T> *node, Coloration<T> *coloration) {
 template <typename T>
 void Graph<T>::print_colors() {
     for (auto node : m_data) {
-        std::cout << node->get_type()->get_subject() << " : "
+        std::cout << node->get_type() << " : "
                   << node->get_color() << std::endl;
     }
 }
@@ -378,4 +378,14 @@ void Graph<T>::print_dsat() {
         std::cout << node->get_type()->get_subject() << " : "
                   << node->get_dsat() << std::endl;
     }
+}
+template <typename T>
+int Graph<T>::get_degree_no_colored(Node<T>* node){
+    int degree = 0;
+    for(auto n : node->get_neighbors()) {
+        if(n->get_color() == -1) {
+            ++degree;
+        }
+    }
+    return degree;
 }

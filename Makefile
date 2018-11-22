@@ -30,7 +30,7 @@ debug: CFLAGS += -g -O0 -pg
 debug: dir graph
 
 # graph: $(OBJ_DIR)/Schedule.o $(OBJ_DIR)/Class.o $(OBJ_DIR)/Coloration.o $(OBJ_DIR)/Node.o $(OBJ_DIR)/Graph.o $(OBJ_DIR)/main.o 
-graph: $(OBJ_DIR)/Schedule.o $(OBJ_DIR)/Class.o $(OBJ_DIR)/main.o 
+graph: $(OBJ_DIR)/Schedule.o $(OBJ_DIR)/Class.o $(OBJ_DIR)/GraphReader.o $(OBJ_DIR)/main.o 
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/$@ $^
 	@echo ">>> [Executavel graph criado em $(BIN_DIR)]"
 
@@ -51,6 +51,9 @@ $(OBJ_DIR)/Node.o: $(SRC_DIR)/Node.cpp $(INC_DIR)/Node.hpp
 	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
 
 $(OBJ_DIR)/Schedule.o: $(SRC_DIR)/Schedule.cpp $(INC_DIR)/Schedule.hpp
+	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
+
+$(OBJ_DIR)/GraphReader.o: $(SRC_DIR)/GraphReader.cpp $(INC_DIR)/GraphReader.hpp
 	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
 
 $(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp

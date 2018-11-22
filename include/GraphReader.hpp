@@ -19,6 +19,7 @@
 #include <sstream>
 #include <string>
 
+#include "Integer.hpp"
 #include "Graph.hpp"
 
 class GraphReader {
@@ -30,7 +31,7 @@ class GraphReader {
     GraphReader &operator=(const GraphReader &) = default;
     ~GraphReader();
 
-    Graph<int> *get_graph(std::string file_name);
+    Graph<Integer> *get_graph(std::string file_name);
     int get_optimal_coloring_number(std::string file_name);
 
    private:

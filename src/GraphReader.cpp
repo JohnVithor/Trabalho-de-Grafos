@@ -25,21 +25,23 @@ GraphReader::GraphReader(std::string data_base) {
         while (!file.eof()) {
             // Exemplo de linha: DSJC1000.1.col.b (1000,99258), ?, DSJ
             std::getline(file, line);
+            if(line.size() > 1){
+                std::size_t ini_pos = line.find(" ");
+                std::string name = line.substr(0, ini_pos);
 
-            std::size_t ini_pos = line.find(" ");
-            std::string name = line.substr(0, ini_pos);
-
-            ini_pos = line.find(", ");
-            std::string aux = line.substr(ini_pos + 2);
-            std::size_t end_pos = aux.find(", ");
-            std::string result = aux.substr(0, end_pos);
-            try {
-                std::stringstream ss(result);
-                int ocn;
-                ss >> ocn;
-                m_optimal_coloring_numbers[name] = ocn;
-            } catch (const std::exception &) {
+                ini_pos = line.find(", ");
+                std::string aux = line.substr(ini_pos + 2);
+                std::size_t end_pos = aux.find(", ");
+                std::string result = aux.substr(0, end_pos);
+                try {
+                    std::stringstream ss(result);
+                    int ocn;
+                    ss >> ocn;
+                    m_optimal_coloring_numbers[name] = ocn;
+                } catch (const std::exception &) {
+                }
             }
+            
         }
     }
     file.close();
@@ -47,7 +49,7 @@ GraphReader::GraphReader(std::string data_base) {
 
 GraphReader::~GraphReader() {}
 
-Graph<int> *GraphReader::get_graph(std::string file_name) {
+Graph<Integer> *GraphReader::get_graph(std::string file_name) {
     /* Exemplo de linhas:
 c FILE: huck.col
 c Translated from Stanford GraphBase File: huck.gb
@@ -59,7 +61,7 @@ e 1 4
     std::ifstream file;
     file.open(file_name);
     if (file.is_open()) {
-        Graph<int> *graph = new Graph();
+        Graph<Integer> *graph = new Graph<Integer>();
         std::string line;
 
         do {
@@ -83,6 +85,9 @@ e 1 4
                 int t;
                 sss >> s;
                 sst >> t;
+
+                graph->insert_edge(new Integer(s), new Integer(t));
+
             } catch (const std::exception &) {
             }
         }

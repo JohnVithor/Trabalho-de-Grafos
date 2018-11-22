@@ -7,8 +7,8 @@
  * @author      João Vítor (jv.venceslau.c@gmail.com)
  * @author      ...
  * @since       02/11/2018
- * @date        19/11/2018
- * @version     0.2
+ * @date        22/11/2018
+ * @version     0.3
  */
 
 #ifndef INCLUDE_GRAPH_HPP_
@@ -60,6 +60,7 @@ class Graph {
     Coloration<T> *dsatur();
     Node<T> *get_greatest_degree_not_colored();
     Node<T> *get_greatest_degree();
+    int get_degree_no_colored(Node<T>* node);
     Node<T> *get_greatest_satured_degree_not_colored();
     Coloration<T> *m_coloration = nullptr;
     int next_color(Node<T> *node, Coloration<T> *coloration);
