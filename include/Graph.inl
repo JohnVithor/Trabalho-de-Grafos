@@ -214,6 +214,7 @@ int Graph<T>::get_order() {
     return m_order;
 }
 
+template <typename T>
 Coloration<T> *Graph<T>::get_coloration() {
     if (m_coloration == nullptr) {
         m_coloration = dsatur();
@@ -277,7 +278,7 @@ Coloration<T> *Graph<T>::dsatur() {
 }
 
 template <typename T>
-Node *Graph<T>::get_greatest_degree_not_colored() {
+Node<T> *Graph<T>::get_greatest_degree_not_colored() {
     bool flag = false;
     Node<T> *great = m_data.front();
     if (great->get_color() == -1) {
