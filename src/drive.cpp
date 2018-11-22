@@ -20,7 +20,7 @@
  * @param argv
  */
 int main(int argc, char const *argv[]) {
-    Graph g;
+    Graph<Class> g;
     std::string horario = "35M34";
     std::string horario2 = "46M34";
 

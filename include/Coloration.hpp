@@ -15,8 +15,8 @@
 #define INCLUDE_COLORATION_HPP_
 
 #include <forward_list>
-#include <list>
 #include <iostream>
+#include <list>
 
 #include "Node.hpp"
 
@@ -24,28 +24,29 @@
  * @brief ...
  *
  */
+template <typename T>
 class Coloration {
    public:
     Coloration();
-    Coloration(Coloration &&) = default;
-    Coloration(const Coloration &) = default;
-    Coloration &operator=(Coloration &&) = default;
-    Coloration &operator=(const Coloration &) = default;
+    Coloration(Coloration<T> &&) = default;
+    Coloration(const Coloration<T> &) = default;
+    Coloration<T> &operator=(Coloration<T> &&) = default;
+    Coloration<T> &operator=(const Coloration<T> &) = default;
     ~Coloration();
 
-    std::list<std::forward_list<Node *> *> get_partitions();
+    std::list<std::forward_list<Node<T> *> *> get_partitions();
     int get_chromatic_number();
     bool is_valid();
     void print();
-    bool add_node(int color, Node *node);
+    bool add_node(int color, Node<T> *node);
 
-    bool operator==(const Coloration &other) const {
+    bool operator==(const Coloration<T> &other) const {
         return m_partitions == other.m_partitions;
     }
 
    private:
     // Graph *m_graph = nullptr;
-    std::list<std::forward_list<Node *> *> m_partitions;
+    std::list<std::forward_list<Node<T> *> *> m_partitions;
     int chromatic_number = 0;
 };
 

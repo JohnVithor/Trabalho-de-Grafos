@@ -1,7 +1,7 @@
 // Copyright 2018 J&JV
 
 /**
- * @file        Node.cpp
+ * @file        Node.inl
  * @brief       ...
  *
  * @author      João Vítor (jv.venceslau.c@gmail.com)
@@ -13,13 +13,19 @@
 
 #include "Node.hpp"
 
-Node::Node() {}
+template <typename T>
+Node<T>::Node() {}
 
-Node::Node(Class *m_class) { this->m_class = m_class; }
+template <typename T>
+Node<T>::Node(T *m_type) {
+    this->m_type = m_type;
+}
 
-Node::~Node() {}
+template <typename T>
+Node<T>::~Node() {}
 
-bool Node::set_color(int color) {
+template <typename T>
+bool Node<T>::set_color(int color) {
     if (this->color == -1) {
         this->color = color;
         return true;
@@ -27,20 +33,34 @@ bool Node::set_color(int color) {
     return false;
 }
 
-int Node::get_color() { return color; }
+template <typename T>
+int Node<T>::get_color() {
+    return color;
+}
 
-int Node::get_degree() { return degree; }
+template <typename T>
+int Node<T>::get_degree() {
+    return degree;
+}
 
-Class *Node::get_class() { return m_class; }
+template <typename T>
+T *Node<T>::get_type() {
+    return m_type;
+}
 
-bool Node::set_class(Class *m_class) {
-    this->m_class = m_class;
+template <typename T>
+bool Node<T>::set_type(T *m_type) {
+    this->m_T = m_type;
     return true;
 }
 
-std::forward_list<Node *> Node::get_neighbors() { return neighbors; }
+template <typename T>
+std::forward_list<Node<T> *> Node<T>::get_neighbors() {
+    return neighbors;
+}
 
-bool Node::remove_neighbor(Node *node) {
+template <typename T>
+bool Node<T>::remove_neighbor(Node<T> *node) {
     bool flag = false;
     for (auto neigh : neighbors) {
         if (neigh == node) {
@@ -55,7 +75,8 @@ bool Node::remove_neighbor(Node *node) {
     return flag;
 }
 
-bool Node::insert_neighbor(Node *node) {
+template <typename T>
+bool Node<T>::insert_neighbor(Node<T> *node) {
     bool flag = false;
     for (auto neigh : neighbors) {
         if (neigh == node) {
@@ -69,7 +90,8 @@ bool Node::insert_neighbor(Node *node) {
     return flag;
 }
 
-bool Node::update_dsat() {
+template <typename T>
+bool Node<T>::update_dsat() {
     std::map<int, int> counter;
     for (auto neigh : neighbors) {
         if (neigh->color != -1) {
@@ -83,4 +105,7 @@ bool Node::update_dsat() {
     return true;
 }
 
-int Node::get_dsat() { return dsat; }
+template <typename T>
+int Node<T>::get_dsat() {
+    return dsat;
+}

@@ -23,14 +23,15 @@
  * @brief ...
  *
  */
+template <typename T>
 class Node {
    public:
     Node();
-    Node(Class *m_class);
-    Node(Node &&) = default;
-    Node(const Node &) = default;
-    Node &operator=(Node &&) = default;
-    Node &operator=(const Node &) = default;
+    Node(T *m_type);
+    Node(Node<T> &&) = default;
+    Node(const Node<T> &) = default;
+    Node<T> &operator=(Node<T> &&) = default;
+    Node<T> &operator=(const Node<T> &) = default;
     ~Node();
 
     bool set_color(int color);
@@ -38,29 +39,25 @@ class Node {
 
     int get_degree();
 
-    Class *get_class();
-    bool set_class(Class *m_class);
+    T *get_type();
+    bool set_type(T *m_type);
 
-    std::forward_list<Node *> get_neighbors();
+    std::forward_list<Node<T> *> get_neighbors();
 
-    bool remove_neighbor(Node *node);
-    bool insert_neighbor(Node *node);
+    bool remove_neighbor(Node<T> *node);
+    bool insert_neighbor(Node<T> *node);
     bool update_dsat();
     int get_dsat();
 
-    bool operator==(const Node &other) const {
-        return m_class == other.m_class;
-    }
-    bool operator!=(const Node &other) const {
-        return m_class != other.m_class;
-    }
+    bool operator==(const Node<T> &other) const { return *m_T == *other.m_type; }
+    bool operator!=(const Node<T> &other) const { return *m_T != *other.m_type; }
 
    private:
-    Class *m_class;
+    T *m_type;
     int color = -1;
     int degree = 0;
     int dsat = 0;
-    std::forward_list<Node *> neighbors;
+    std::forward_list<Node<T> *> neighbors;
 };
 
 #endif  // INCLUDE_NODE_HPP_

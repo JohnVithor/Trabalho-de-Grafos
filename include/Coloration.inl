@@ -1,7 +1,7 @@
 // Copyright 2018 J&JV
 
 /**
- * @file        Coloration.cpp
+ * @file        Coloration.inl
  * @brief       ...
  *
  * @author      João Vítor (jv.venceslau.c@gmail.com)
@@ -13,19 +13,29 @@
 
 #include "Coloration.hpp"
 
-Coloration::Coloration() {}
+template <typename T>
+Coloration<T>::Coloration() {}
 
-Coloration::~Coloration() {}
+template <typename T>
+Coloration<T>::~Coloration() {}
 
-std::list<std::forward_list<Node *> *> Coloration::get_partitions() {
+template <typename T>
+std::list<std::forward_list<Node<T> *> *> Coloration<T>::get_partitions() {
     return m_partitions;
 }
 
-int Coloration::get_chromatic_number() { return chromatic_number; }
+template <typename T>
+int Coloration<T>::get_chromatic_number() {
+    return chromatic_number;
+}
 
-bool Coloration::is_valid() { return false; }
+template <typename T>
+bool Coloration<T>::is_valid() {
+    return false;
+}
 
-bool Coloration::add_node(int color, Node *node) {
+template <typename T>
+bool Coloration<T>::add_node(int color, Node<T> *node) {
     if (chromatic_number <= color) {
         std::forward_list<Node *> *new_color = new std::forward_list<Node *>();
         new_color->push_front(node);
@@ -44,12 +54,13 @@ bool Coloration::add_node(int color, Node *node) {
     return false;
 }
 
-void Coloration::print() {
+template <typename T>
+void Coloration<T>::print() {
     int count = 0;
     for (auto color : m_partitions) {
         std::cout << "Cor " << count << ": ";
         for (auto node : *color) {
-            std::cout << node->get_class()->get_subject() << " ";
+            std::cout << node->get_type() << " ";
         }
         ++count;
         std::cout << std::endl;
