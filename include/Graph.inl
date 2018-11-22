@@ -235,9 +235,9 @@ template <typename T>
 void Graph<T>::print() {
     std::cout << "Nodes: Edges" << std::endl;
     for (auto node : m_data) {
-        std::cout << node->get_type() << ": ";
+        std::cout << *node->get_type() << ": ";
         for (auto neigh : node->get_neighbors()) {
-            std::cout << neigh->get_type() << " ";
+            std::cout << *neigh->get_type() << " ";
         }
         std::cout << std::endl;
     }

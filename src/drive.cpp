@@ -70,7 +70,7 @@ int main(int argc, char const *argv[]) {
     g.insert_edge(&c[8], &c[9]);
 
     g.print();
-    Coloration *coloration = g.get_coloration();
+    Coloration<Class> *coloration = g.get_coloration();
     g.print_colors();
     coloration->print();
 

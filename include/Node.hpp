@@ -49,8 +49,13 @@ class Node {
     bool update_dsat();
     int get_dsat();
 
-    bool operator==(const Node<T> &other) const { return *m_T == *other.m_type; }
-    bool operator!=(const Node<T> &other) const { return *m_T != *other.m_type; }
+    bool operator==(const Node<T> &other) const { return *m_type == *other.m_type; }
+    bool operator!=(const Node<T> &other) const { return *m_type != *other.m_type; }
+
+    friend std::ostream& operator<<(std::ostream &o, Node<T> const &node) {
+        o << *node.get_type();
+        return o;
+    }
 
    private:
     T *m_type;
@@ -59,5 +64,7 @@ class Node {
     int dsat = 0;
     std::forward_list<Node<T> *> neighbors;
 };
+
+#include "Node.inl"
 
 #endif  // INCLUDE_NODE_HPP_

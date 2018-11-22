@@ -38,6 +38,11 @@ class Class {
     bool operator==(const Class& other) const;
     bool operator!=(const Class& other) const;
 
+    friend std::ostream& operator<<(std::ostream &o, Class &s_class) {
+        o << s_class.get_subject();
+        return o;
+    }
+
    private:
     std::string subject;
     Schedule schedule;

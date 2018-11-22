@@ -65,4 +65,6 @@ class Graph {
     int next_color(Node<T> *node, Coloration<T> *coloration);
 };
 
+#include "Graph.inl"
+
 #endif  // INCLUDE_GRAPH_HPP_

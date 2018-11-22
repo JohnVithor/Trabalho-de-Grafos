@@ -29,9 +29,14 @@ all: dir graph
 debug: CFLAGS += -g -O0 -pg
 debug: dir graph
 
-graph: $(OBJ_DIR)/Schedule.o $(OBJ_DIR)/Class.o $(OBJ_DIR)/Coloration.o $(OBJ_DIR)/Node.o $(OBJ_DIR)/Graph.o $(OBJ_DIR)/main.o 
+# graph: $(OBJ_DIR)/Schedule.o $(OBJ_DIR)/Class.o $(OBJ_DIR)/Coloration.o $(OBJ_DIR)/Node.o $(OBJ_DIR)/Graph.o $(OBJ_DIR)/main.o 
+graph: $(OBJ_DIR)/Schedule.o $(OBJ_DIR)/Class.o $(OBJ_DIR)/main.o 
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/$@ $^
 	@echo ">>> [Executavel graph criado em $(BIN_DIR)]"
+
+drive: $(OBJ_DIR)/Schedule.o $(OBJ_DIR)/Class.o $(OBJ_DIR)/drive.o 
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/$@ $^
+	@echo ">>> [Executavel drive criado em $(BIN_DIR)]"
 
 $(OBJ_DIR)/Class.o: $(SRC_DIR)/Class.cpp $(INC_DIR)/Class.hpp
 	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
@@ -51,6 +56,8 @@ $(OBJ_DIR)/Schedule.o: $(SRC_DIR)/Schedule.cpp $(INC_DIR)/Schedule.hpp
 $(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp
 	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
 
+$(OBJ_DIR)/drive.o: $(SRC_DIR)/drive.cpp
+	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
 
 # Alvo (target) para a geração automatica de documentacao usando o Doxygen.
 # Sempre remove a documentacao anterior (caso exista) e gera uma nova.

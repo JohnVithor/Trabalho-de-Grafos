@@ -37,7 +37,7 @@ bool Coloration<T>::is_valid() {
 template <typename T>
 bool Coloration<T>::add_node(int color, Node<T> *node) {
     if (chromatic_number <= color) {
-        std::forward_list<Node *> *new_color = new std::forward_list<Node *>();
+        std::forward_list<Node<T> *> *new_color = new std::forward_list<Node<T> *>();
         new_color->push_front(node);
         m_partitions.push_back(new_color);
         ++chromatic_number;
@@ -60,7 +60,7 @@ void Coloration<T>::print() {
     for (auto color : m_partitions) {
         std::cout << "Cor " << count << ": ";
         for (auto node : *color) {
-            std::cout << node->get_type() << " ";
+            std::cout << *node->get_type() << " ";
         }
         ++count;
         std::cout << std::endl;

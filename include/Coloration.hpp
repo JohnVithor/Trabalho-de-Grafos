@@ -50,4 +50,6 @@ class Coloration {
     int chromatic_number = 0;
 };
 
+#include "Coloration.inl"
+
 #endif  // INCLUDE_COLORATION_HPP_
