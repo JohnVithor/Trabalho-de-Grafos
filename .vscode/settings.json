@@ -30,6 +30,9 @@
         "sstream": "cpp",
         "tuple": "cpp",
         "utility": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "cmath": "cpp",
+        "optional": "cpp",
+        "string_view": "cpp"
     }
 }

@@ -11,8 +11,8 @@
  * @version     0.3
  */
 
-#include "GraphReader.hpp"
 #include "Graph.hpp"
+#include "GraphReader.hpp"
 
 /**
  * @brief Função Principal da aplicação.
@@ -21,15 +21,41 @@
  * @param argv
  */
 int main(int argc, char const *argv[]) {
-    // TODO(Someone): Montar a interface do programa para carregar os casos de
-    // teste a partir de arquivos e guardar num arquivo o resultado.
-
+    if (argc != 2) {
+        std::cout << "Modo de uso:" << std::endl
+                  << "./DSAT caminho/nome.col" << std::endl
+                  << "Para Salvar em arquivo por favor use redirecionamento '>'"
+                  << std::endl
+                  << "Exemplo: ./DSAT caminho/nome.col > saida.txt"
+                  << std::endl;
+        return -1;
+    }
+    std::string archive(argv[1]);
     GraphReader gr("Casos de testes para coloração/optimal_coloring.txt");
-    auto g = gr.get_graph("Casos de testes para coloração/myciel3.col");
-    auto c = g->get_coloration();
 
-    g->print();
-    g->print_colors();
-    std::cout << gr.get_optimal_coloring_number("myciel3.col") << std::endl;
-    return 0;
+    auto g = gr.get_graph(archive);
+    if (g != nullptr) {
+        std::cout << "Arquivo: " << archive << " carregado." << std::endl;
+        // g->print();
+
+        auto c = g->get_coloration();
+        // c->print();
+
+        if (g->valid_coloration()) {
+            std::cout << "Coloração válida encontrada!" << std::endl;
+        } else {
+            std::cout << "Coloração inválida encontrada...!" << std::endl;
+        }
+
+        std::cout << "Número Cromático Encontrado: "
+                  << c->get_chromatic_number()
+                  << std::endl
+                  // << "Número Cromático Esperado: "
+                  // << Usar a biblioteca em python seria interessante
+                  << "Número Cromático Ótimo: "
+                  << gr.get_optimal_coloring_number("myciel3.col") << std::endl;
+        return 0;
+    }
+    std::cout << "Arquivo não encontrado. Abortando programa." << std::endl;
+    return -1;
 }

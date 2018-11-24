@@ -223,6 +223,18 @@ Coloration<T> *Graph<T>::get_coloration() {
 }
 
 template <typename T>
+bool Graph<T>::valid_coloration() {
+    for (auto node : m_data) {
+        for (auto neigh : node->get_neighbors()) {
+            if (node->get_color() == neigh->get_color()) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+template <typename T>
 bool Graph<T>::erase_coloration() {
     m_coloration = nullptr;
     for (auto node : m_data) {
@@ -367,23 +379,23 @@ int Graph<T>::next_color(Node<T> *node, Coloration<T> *coloration) {
 template <typename T>
 void Graph<T>::print_colors() {
     for (auto node : m_data) {
-        std::cout << node->get_type() << " : "
-                  << node->get_color() << std::endl;
+        std::cout << *node->get_type() << " : " << node->get_color()
+                  << std::endl;
     }
 }
 
 template <typename T>
 void Graph<T>::print_dsat() {
     for (auto node : m_data) {
-        std::cout << node->get_type()->get_subject() << " : "
-                  << node->get_dsat() << std::endl;
+        std::cout << *node->get_type() << " : " << node->get_dsat()
+                  << std::endl;
     }
 }
 template <typename T>
-int Graph<T>::get_degree_no_colored(Node<T>* node){
+int Graph<T>::get_degree_no_colored(Node<T> *node) {
     int degree = 0;
-    for(auto n : node->get_neighbors()) {
-        if(n->get_color() == -1) {
+    for (auto n : node->get_neighbors()) {
+        if (n->get_color() == -1) {
             ++degree;
         }
     }

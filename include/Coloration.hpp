@@ -36,7 +36,6 @@ class Coloration {
 
     std::list<std::forward_list<Node<T> *> *> get_partitions();
     int get_chromatic_number();
-    bool is_valid();
     void print();
     bool add_node(int color, Node<T> *node);
 

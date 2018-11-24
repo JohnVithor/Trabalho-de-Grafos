@@ -25,7 +25,7 @@ GraphReader::GraphReader(std::string data_base) {
         while (!file.eof()) {
             // Exemplo de linha: DSJC1000.1.col.b (1000,99258), ?, DSJ
             std::getline(file, line);
-            if(line.size() > 1){
+            if (line.size() > 1) {
                 std::size_t ini_pos = line.find(" ");
                 std::string name = line.substr(0, ini_pos);
 
@@ -41,7 +41,6 @@ GraphReader::GraphReader(std::string data_base) {
                 } catch (const std::exception &) {
                 }
             }
-            
         }
     }
     file.close();
@@ -50,14 +49,6 @@ GraphReader::GraphReader(std::string data_base) {
 GraphReader::~GraphReader() {}
 
 Graph<Integer> *GraphReader::get_graph(std::string file_name) {
-    /* Exemplo de linhas:
-c FILE: huck.col
-c Translated from Stanford GraphBase File: huck.gb
-c Stanford GraphBase ID: book(?huck?,74,0,1,43,0,0,0)
-p edge 74 602
-e 1 44
-e 1 4
-    */
     std::ifstream file;
     file.open(file_name);
     if (file.is_open()) {
@@ -72,11 +63,10 @@ e 1 4
         }
         while (!file.eof()) {
             std::size_t pos = line.find(" ");
-            pos = line.substr(pos + 1).find(" ");
-            std::string aux = line.substr(pos);
-            pos = line.find(" ");
-            std::string source = aux.substr(0, pos);
-            std::string target = aux.substr(pos);
+            std::string aux = line.substr(pos+1);
+            pos = aux.find(" ");
+            std::string source = aux.substr(0, pos+1);
+            std::string target = aux.substr(pos+1);
 
             try {
                 std::stringstream sss(source);
@@ -90,6 +80,7 @@ e 1 4
 
             } catch (const std::exception &) {
             }
+            std::getline(file, line);
         }
         file.close();
         return graph;

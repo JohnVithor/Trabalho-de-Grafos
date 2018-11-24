@@ -46,6 +46,7 @@ class Graph {
     int get_order();
 
     Coloration<T> *get_coloration();
+    bool valid_coloration();
     bool erase_coloration();
 
     void print();
