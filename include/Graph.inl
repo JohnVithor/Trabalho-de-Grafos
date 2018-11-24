@@ -238,7 +238,7 @@ template <typename T>
 bool Graph<T>::erase_coloration() {
     m_coloration = nullptr;
     for (auto node : m_data) {
-        node->set_color(-1);
+        node->erase_color();
     }
     return true;
 }
@@ -257,11 +257,11 @@ void Graph<T>::print() {
               << "Size: " << m_size << std::endl;
 }
 
-// O(n) + O(1) + O(1) +
-// O(n-1) * ( O(n) + O(x*v) + O(x) + O(1) )
-// O(n-1) * O(x*v)
-// No pior caso... Grafo completo... O(n^2 * x)
-// Complexidade quadratica e relativa ao numero de cores... Deu um pouco ruim...
+// O(n) + O(x) + O(x) +
+// O(n-1) * ( O(n) + O(x) + O(x) + O(v) * O(1) )
+// O(n-1) * O(n)
+// No pior caso... Grafo completo... O(n^2)
+// Complexidade quadratica... Finalmente...
 template <typename T>
 Coloration<T> *Graph<T>::dsatur() {
     Coloration<T> *coloration = new Coloration<T>();
@@ -271,23 +271,35 @@ Coloration<T> *Graph<T>::dsatur() {
     // O(x) Onde x é o numero de cores atualmente sendo usadas
     // No caso, para cores novas é constante
     coloration->add_node(0, great);
-    // O(1) dependendo da hash utilizada
-    great->set_color(0);
+    // O(x) dependendo das cores já existentes nos vizinhos
+    great->set_color();
+    for (auto neigh : great->get_neighbors()) {
+        // O(1) get e O(1)
+        neigh->update_dsat(great->get_color());
+    }
     --count;
     // O(n-1) Passa uma vez por cada node restante
     while (count > 0) {
         // O(n) Onde n é o numero de nodes
         great = get_greatest_satured_degree_not_colored();
 
-        // O(x * v) Onde x é o numero de cores e v é o numero de vizinhos do
-        // node escolhido
-        int color = next_color(great, coloration);
-
+        // O(x) dependendo das cores já existentes nos vizinhos
+        int color = great->set_color();
         // O(x) Onde x é o numero de cores atualmente sendo usadas
         coloration->add_node(color, great);
-        // O(1) dependendo da hash utilizada
-        great->set_color(color);
+        /*
+                std::cout << std::endl;
+                coloration->print();
+                std::cout << std::endl;
+        */
+
         --count;
+
+        // O(v) onde v é o numero de vizinhos do node great
+        for (auto neigh : great->get_neighbors()) {
+            // O(1) get e O(1)
+            neigh->update_dsat(great->get_color());
+        }
     }
 
     return coloration;
@@ -353,31 +365,6 @@ Node<T> *Graph<T>::get_greatest_satured_degree_not_colored() {
         }
     }
     return great;
-}
-
-template <typename T>
-int Graph<T>::next_color(Node<T> *node, Coloration<T> *coloration) {
-    bool flag = true;
-    int count = 0;
-    for (auto color : coloration->get_partitions()) {
-        flag = true;
-        for (auto neigh : node->get_neighbors()) {
-            for (auto n : *color) {
-                if (n == neigh) {
-                    flag = false;
-                    break;
-                }
-            }
-            if (!flag) {
-                break;
-            }
-        }
-        if (flag) {
-            return count;
-        }
-        ++count;
-    }
-    return count;
 }
 
 template <typename T>

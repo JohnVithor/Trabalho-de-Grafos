@@ -34,9 +34,10 @@ class Node {
     Node<T> &operator=(const Node<T> &) = default;
     ~Node();
 
-    bool set_color(int color);
+    int set_color();
     int get_color();
-
+    bool erase_color();
+    
     int get_degree();
 
     T *get_type();
@@ -48,11 +49,16 @@ class Node {
     bool insert_neighbor(Node<T> *node);
     bool update_dsat();
     int get_dsat();
+    bool update_dsat(int color);
 
-    bool operator==(const Node<T> &other) const { return *m_type == *other.m_type; }
-    bool operator!=(const Node<T> &other) const { return *m_type != *other.m_type; }
+    bool operator==(const Node<T> &other) const {
+        return *m_type == *other.m_type;
+    }
+    bool operator!=(const Node<T> &other) const {
+        return *m_type != *other.m_type;
+    }
 
-    friend std::ostream& operator<<(std::ostream &o, Node<T> const &node) {
+    friend std::ostream &operator<<(std::ostream &o, Node<T> const &node) {
         o << *node.get_type();
         return o;
     }

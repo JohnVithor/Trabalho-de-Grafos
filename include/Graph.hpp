@@ -64,7 +64,6 @@ class Graph {
     int get_degree_no_colored(Node<T>* node);
     Node<T> *get_greatest_satured_degree_not_colored();
     Coloration<T> *m_coloration = nullptr;
-    int next_color(Node<T> *node, Coloration<T> *coloration);
 };
 
 #include "Graph.inl"

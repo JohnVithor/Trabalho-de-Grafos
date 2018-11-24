@@ -25,13 +25,26 @@ template <typename T>
 Node<T>::~Node() {}
 
 template <typename T>
-bool Node<T>::set_color(int color) {
+int Node<T>::set_color() {
     if (this->color == -1) {
-        this->color = color;
-        dsat[color] = color;
-        return true;
+        int color = 0;
+        while (true) {
+            auto it = dsat.find(color);
+            if (it == dsat.end()) {
+                this->color = color;
+                // dsat[color] = color;
+                return color;
+            }
+            ++color;
+        }
     }
-    return false;
+    return -1;
+}
+
+template <typename T>
+bool Node<T>::erase_color() {
+    this->color = -1;
+    return true;
 }
 
 template <typename T>
@@ -94,4 +107,10 @@ bool Node<T>::insert_neighbor(Node<T> *node) {
 template <typename T>
 int Node<T>::get_dsat() {
     return dsat.size();
+}
+
+template <typename T>
+bool Node<T>::update_dsat(int color) {
+    dsat[color] = color;
+    return true;
 }

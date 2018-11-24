@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/graph",
-            "args": [],
+            "args": ["Casos de testes para coloração/myciel3.col"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
