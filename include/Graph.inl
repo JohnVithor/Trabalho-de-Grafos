@@ -257,31 +257,45 @@ void Graph<T>::print() {
               << "Size: " << m_size << std::endl;
 }
 
+// O(n) + O(1) + O(1) +
+// O(n-1) * ( O(w) * ( O(1) + O(v) ) +
+//            O(n) + O(x*v) + O(x) + O(1) )
+// O(n-1) * O(w) * O(v)
+// No pior caso... Grafo completo... O(n³)
+// Complexidade cúbica... Deu ruim...
 template <typename T>
 Coloration<T> *Graph<T>::dsatur() {
     Coloration<T> *coloration = new Coloration<T>();
     int count = m_order;
+    // O(n) Passa uma vez por cada node
     Node<T> *great = get_greatest_degree();
+    // O(x) Onde x é o numero de cores atualmente sendo usadas
+    // No caso, para cores novas é constante
     coloration->add_node(0, great);
+    // O(1)
     great->set_color(0);
     --count;
-    // std::cout << great->get_type()->get_subject() << " 0" << std::endl;
+    // O(n-1) Passa uma vez por cada node restante
     while (count > 0) {
+        // O(w) Onde w é o numero de vizinhos do ultimo node colorido
         for (auto neigh : great->get_neighbors()) {
+            // O(1)
             if (neigh->get_color() == -1) {
+                // O(v) onde v é o numero de vizinhos de neigh
                 neigh->update_dsat();
             }
         }
-        // print_dsat();
 
+        // O(n) Onde n é o numero de nodes
         great = get_greatest_satured_degree_not_colored();
 
+        // O(x * v) Onde x é o numero de cores e v é o numero de vizinhos do
+        // node escolhido
         int color = next_color(great, coloration);
 
-        // std::cout << great->get_type()->get_subject() << " " << color
-        //           << std::endl;
-
+        // O(x) Onde x é o numero de cores atualmente sendo usadas
         coloration->add_node(color, great);
+        // O(1)
         great->set_color(color);
         --count;
     }
