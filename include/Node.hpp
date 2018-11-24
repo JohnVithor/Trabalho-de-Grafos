@@ -5,10 +5,10 @@
  * @brief       ...
  *
  * @author      João Vítor (jv.venceslau.c@gmail.com)
- * @author      ...
+ * @author      Josivan Gois ()
  * @since       04/11/2018
- * @date        22/11/2018
- * @version     0.3
+ * @date        24/11/2018
+ * @version     0.4
  */
 
 #ifndef INCLUDE_NODE_HPP_
@@ -61,8 +61,8 @@ class Node {
     T *m_type;
     int color = -1;
     int degree = 0;
-    int dsat = 0;
     std::forward_list<Node<T> *> neighbors;
+    std::map<int, int> dsat;
 };
 
 #include "Node.inl"

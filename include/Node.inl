@@ -5,10 +5,10 @@
  * @brief       ...
  *
  * @author      João Vítor (jv.venceslau.c@gmail.com)
- * @author      ...
+ * @author      Josivan Gois ()
  * @since       04/11/2018
- * @date        22/11/2018
- * @version     0.3
+ * @date        24/11/2018
+ * @version     0.4
  */
 
 #include "Node.hpp"
@@ -28,6 +28,7 @@ template <typename T>
 bool Node<T>::set_color(int color) {
     if (this->color == -1) {
         this->color = color;
+        dsat[color] = color;
         return true;
     }
     return false;
@@ -91,21 +92,6 @@ bool Node<T>::insert_neighbor(Node<T> *node) {
 }
 
 template <typename T>
-bool Node<T>::update_dsat() {
-    std::map<int, int> counter;
-    for (auto neigh : neighbors) {
-        if (neigh->color != -1) {
-            auto n = counter.insert(std::pair<int, int>(neigh->color, 1));
-            if (n.second == false) {
-                counter[neigh->color] = ++counter[neigh->color];
-            }
-        }
-    }
-    dsat = counter.size();
-    return true;
-}
-
-template <typename T>
 int Node<T>::get_dsat() {
-    return dsat;
+    return dsat.size();
 }

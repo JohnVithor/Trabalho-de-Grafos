@@ -5,10 +5,10 @@
  * @brief       ...
  *
  * @author      João Vítor (jv.venceslau.c@gmail.com)
- * @author      ...
+ * @author      Josivan Gois ()
  * @since       02/11/2018
- * @date        22/11/2018
- * @version     0.4
+ * @date        24/11/2018
+ * @version     0.5
  */
 
 #include "Graph.hpp"
@@ -258,11 +258,10 @@ void Graph<T>::print() {
 }
 
 // O(n) + O(1) + O(1) +
-// O(n-1) * ( O(w) * ( O(1) + O(v) ) +
-//            O(n) + O(x*v) + O(x) + O(1) )
-// O(n-1) * O(w) * O(v)
-// No pior caso... Grafo completo... O(n³)
-// Complexidade cúbica... Deu ruim...
+// O(n-1) * ( O(n) + O(x*v) + O(x) + O(1) )
+// O(n-1) * O(x*v)
+// No pior caso... Grafo completo... O(n^2 * x)
+// Complexidade quadratica e relativa ao numero de cores... Deu um pouco ruim...
 template <typename T>
 Coloration<T> *Graph<T>::dsatur() {
     Coloration<T> *coloration = new Coloration<T>();
@@ -272,20 +271,11 @@ Coloration<T> *Graph<T>::dsatur() {
     // O(x) Onde x é o numero de cores atualmente sendo usadas
     // No caso, para cores novas é constante
     coloration->add_node(0, great);
-    // O(1)
+    // O(1) dependendo da hash utilizada
     great->set_color(0);
     --count;
     // O(n-1) Passa uma vez por cada node restante
     while (count > 0) {
-        // O(w) Onde w é o numero de vizinhos do ultimo node colorido
-        for (auto neigh : great->get_neighbors()) {
-            // O(1)
-            if (neigh->get_color() == -1) {
-                // O(v) onde v é o numero de vizinhos de neigh
-                neigh->update_dsat();
-            }
-        }
-
         // O(n) Onde n é o numero de nodes
         great = get_greatest_satured_degree_not_colored();
 
@@ -295,7 +285,7 @@ Coloration<T> *Graph<T>::dsatur() {
 
         // O(x) Onde x é o numero de cores atualmente sendo usadas
         coloration->add_node(color, great);
-        // O(1)
+        // O(1) dependendo da hash utilizada
         great->set_color(color);
         --count;
     }
