@@ -48,7 +48,7 @@ g = nx.Graph()
 n = len(turmas['Horário'])
 for i in range(n):
     for j in range(i, n):
-        if ((turmas['Horário'][i] != turmas['Horário'][j]) and comp(turmas['Horário'][i], turmas['Horário'][j])):
+        if ((turmas['Horário'][i] != turmas['Horário'][j]) and not comp(turmas['Horário'][i], turmas['Horário'][j])):
             g.add_edge(i, j)
 
 file = open("Turmas/" + sys.argv[2] + ".col", 'w')

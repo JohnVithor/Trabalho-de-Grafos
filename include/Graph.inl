@@ -368,10 +368,9 @@ Node<T> *Graph<T>::get_greatest_satured_degree_not_colored() {
 }
 
 template <typename T>
-void Graph<T>::print_colors() {
+void Graph<T>::print_colors(std::ostream *output) {
     for (auto node : m_data) {
-        std::cout << *node->get_type() << " : " << node->get_color()
-                  << std::endl;
+        *output << *node->get_type() << " : " << node->get_color() << std::endl;
     }
 }
 

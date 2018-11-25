@@ -50,7 +50,7 @@ class Graph {
     bool erase_coloration();
 
     void print();
-    void print_colors();
+    void print_colors(std::ostream *output);
     void print_dsat();
 
    private:

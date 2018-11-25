@@ -31,22 +31,25 @@ int main(int argc, char **argv) {
                   << "1 - ./DSAT -i caminho/nome.col -o destino" << std::endl
                   << "2 - ./DSAT -i caminho/nome.col >> destino" << std::endl
                   << "Para salvar resultados como CSV inclua a flag -m"
+                  << "Para salvar a coloração obtida num CSV inclua a flag -s"
                   << std::endl;
-        //<< "flags"
-
         return -1;
     }
 
     bool m_flag = false;
+    bool s_flag = false;
     std::string i_file = "";
     std::string o_file = "";
     int c;
     std::ostream *saida = &std::cout;
     opterr = 0;
 
-    while ((c = getopt(argc, argv, "mi:o:")) != -1) switch (c) {
+    while ((c = getopt(argc, argv, "msi:o:")) != -1) switch (c) {
             case 'm':
                 m_flag = true;
+                break;
+            case 's':
+                s_flag = true;
                 break;
             case 'i':
                 i_file = optarg;
@@ -92,10 +95,12 @@ int main(int argc, char **argv) {
             *saida << "Arquivo: " << i_file << " carregado." << std::endl;
         }
 
-        // g->print();
-
         auto c = g->get_coloration();
-        // c->print();
+
+        if (s_flag) {
+            g->print_colors(saida);
+            *saida << std::endl;
+        }
         if (!g->valid_coloration()) {
             std::cerr << "Coloração inválida encontrada!" << std::endl
                       << "Arquivo: " << i_file << std::endl;
