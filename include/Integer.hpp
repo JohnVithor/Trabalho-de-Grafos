@@ -5,7 +5,7 @@
  * @brief       ...
  *
  * @author      João Vítor (jv.venceslau.c@gmail.com)
- * @author      ...
+ * @author      Josivan ()
  * @since       22/11/2018
  * @date        22/11/2018
  * @version     0.1

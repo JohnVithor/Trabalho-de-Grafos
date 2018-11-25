@@ -27,4 +27,7 @@ result = nx.greedy_color(g, strategy='DSATUR', interchange=False)
 
 cores = list(result.values())
 #print("Arquivo: " + str(sys.argv[1]) + "\n")
-print("Resultado do DSATUR: " + str(len(np.unique(cores))))
+if(len(sys.argv) == 3 and sys.argv[2] == 'm'):
+    print(';' + str(len(np.unique(cores))))
+else:
+    print("Numero de cores encontradas: " + str(len(np.unique(cores))))

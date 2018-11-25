@@ -5,7 +5,7 @@
  * @brief       ...
  *
  * @author      João Vítor (jv.venceslau.c@gmail.com)
- * @author      ...
+ * @author      Josivan ()
  * @since       22/11/2018
  * @date        22/11/2018
  * @version     0.1
@@ -51,7 +51,7 @@ GraphReader::~GraphReader() {}
 Graph<Integer> *GraphReader::get_graph(std::string file_name) {
     std::ifstream file;
     file.open(file_name);
-    if (file.is_open()) {
+    if (!file.fail()) {
         Graph<Integer> *graph = new Graph<Integer>();
         std::string line;
 
@@ -63,10 +63,10 @@ Graph<Integer> *GraphReader::get_graph(std::string file_name) {
         }
         while (!file.eof()) {
             std::size_t pos = line.find(" ");
-            std::string aux = line.substr(pos+1);
+            std::string aux = line.substr(pos + 1);
             pos = aux.find(" ");
-            std::string source = aux.substr(0, pos+1);
-            std::string target = aux.substr(pos+1);
+            std::string source = aux.substr(0, pos + 1);
+            std::string target = aux.substr(pos + 1);
 
             try {
                 std::stringstream sss(source);
@@ -85,7 +85,7 @@ Graph<Integer> *GraphReader::get_graph(std::string file_name) {
         file.close();
         return graph;
     } else {
-        // file.close();
+        file.close();
         return nullptr;
     }
 }
