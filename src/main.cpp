@@ -25,11 +25,11 @@
 int main(int argc, char **argv) {
     if (argc < 2) {
         std::cout << "Modo de uso:" << std::endl
-                  << "./DSAT -i caminho/nome.col" << std::endl
+                  << "./DSATUR -i caminho/nome.col" << std::endl
                   << "Para salvar resultado em arquivo existem duas opções: "
                   << std::endl
-                  << "1 - ./DSAT -i caminho/nome.col -o destino" << std::endl
-                  << "2 - ./DSAT -i caminho/nome.col >> destino" << std::endl
+                  << "1 - ./DSATUR -i caminho/nome.col -o destino" << std::endl
+                  << "2 - ./DSATUR -i caminho/nome.col >> destino" << std::endl
                   << "Para salvar resultados como CSV inclua a flag -m"
                   << "Para salvar a coloração obtida num CSV inclua a flag -s"
                   << std::endl;
@@ -114,6 +114,7 @@ int main(int argc, char **argv) {
                    << "Número Cromático Ótimo: "
                    << gr.get_optimal_coloring_number(name) << std::endl;
         }
+        delete g;
         return 0;
     }
     std::cerr << "Arquivo não encontrado. Abortando programa." << std::endl;

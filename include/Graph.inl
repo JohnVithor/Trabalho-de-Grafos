@@ -17,7 +17,18 @@ template <typename T>
 Graph<T>::Graph() {}
 
 template <typename T>
-Graph<T>::~Graph() {}
+Graph<T>::~Graph() {
+    for (auto node : m_data) {
+        if (node != nullptr) {
+            delete node;
+            node = nullptr;
+        }
+    }
+    if (m_coloration != nullptr) {
+        delete m_coloration;
+        m_coloration = nullptr;
+    }
+}
 
 template <typename T>
 bool Graph<T>::insert_node(T *m_type) {
@@ -236,6 +247,7 @@ bool Graph<T>::valid_coloration() {
 
 template <typename T>
 bool Graph<T>::erase_coloration() {
+    delete m_coloration;
     m_coloration = nullptr;
     for (auto node : m_data) {
         node->erase_color();

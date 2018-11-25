@@ -54,7 +54,7 @@ class Graph {
     void print_dsat();
 
    private:
-    std::forward_list<Node<T> *> m_data;
+    std::list<Node<T> *> m_data;
     int m_order = 0;
     int m_size = 0;
 

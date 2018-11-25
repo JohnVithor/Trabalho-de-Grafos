@@ -24,22 +24,14 @@ CFLAGS = -Wall -pedantic -ansi -std=c++11 -I. -I$(INC_DIR)
 
 .PHONY: all clean distclean doxy
 
-all: dir graph
+all: dir DSATUR
 
 debug: CFLAGS += -g -O0 -pg
-debug: dir graph
+debug: dir DSATUR
 
-# graph: $(OBJ_DIR)/Schedule.o $(OBJ_DIR)/Class.o $(OBJ_DIR)/Coloration.o $(OBJ_DIR)/Node.o $(OBJ_DIR)/Graph.o $(OBJ_DIR)/main.o 
-graph: $(OBJ_DIR)/Schedule.o $(OBJ_DIR)/Class.o $(OBJ_DIR)/GraphReader.o $(OBJ_DIR)/main.o 
+DSATUR: $(OBJ_DIR)/GraphReader.o $(OBJ_DIR)/main.o 
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/$@ $^
-	@echo ">>> [Executavel graph criado em $(BIN_DIR)]"
-
-drive: $(OBJ_DIR)/Schedule.o $(OBJ_DIR)/Class.o $(OBJ_DIR)/drive.o 
-	$(CC) $(CFLAGS) -o $(BIN_DIR)/$@ $^
-	@echo ">>> [Executavel drive criado em $(BIN_DIR)]"
-
-$(OBJ_DIR)/Class.o: $(SRC_DIR)/Class.cpp $(INC_DIR)/Class.hpp
-	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
+	@echo ">>> [Executavel DSATUR criado em $(BIN_DIR)]"
 	
 $(OBJ_DIR)/Coloration.o: $(SRC_DIR)/Coloration.cpp $(INC_DIR)/Coloration.hpp
 	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
@@ -50,16 +42,10 @@ $(OBJ_DIR)/Graph.o: $(SRC_DIR)/Graph.cpp $(INC_DIR)/Graph.hpp
 $(OBJ_DIR)/Node.o: $(SRC_DIR)/Node.cpp $(INC_DIR)/Node.hpp
 	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
 
-$(OBJ_DIR)/Schedule.o: $(SRC_DIR)/Schedule.cpp $(INC_DIR)/Schedule.hpp
-	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
-
 $(OBJ_DIR)/GraphReader.o: $(SRC_DIR)/GraphReader.cpp $(INC_DIR)/GraphReader.hpp
 	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
 
 $(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp
-	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
-
-$(OBJ_DIR)/drive.o: $(SRC_DIR)/drive.cpp
 	$(CC) -c $(CFLAGS) -I$(INC_DIR)/ -o $@ $<
 
 # Alvo (target) para a geração automatica de documentacao usando o Doxygen.
@@ -75,11 +61,11 @@ dir:
 
 # Alvo (target) para analisar o código em busca de vazamento de memória (modo 1)
 valgrind_simple:
-	valgrind -v --leak-check=full --show-reachable=yes $(arg1)
+	valgrind -v  $(arg1) $(arg2) $(arg3) $(arg4)
 
 # Alvo (target) para analisar o código em busca de vazamento de memória (modo 2)
 valgrind_full:
-	valgrind -v --leak-check=full --show-reachable=yes --track-origins=yes $(arg1)
+	valgrind -v --leak-check=full --show-reachable=yes --track-origins=yes $(arg1) $(arg2) $(arg3) $(arg4)
 
 # Alvo (target) usado para analise estatica do código. (modo 1)
 # analisa o arquivo indicado por arg1 - modo de usar: make lint_complete arg1=_caminho-do-arquivo_

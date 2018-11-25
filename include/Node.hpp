@@ -17,8 +17,6 @@
 #include <forward_list>
 #include <map>
 
-#include "Class.hpp"
-
 /**
  * @brief ...
  *

@@ -17,10 +17,23 @@ template <typename T>
 Coloration<T>::Coloration() {}
 
 template <typename T>
-Coloration<T>::~Coloration() {}
+Coloration<T>::~Coloration() {
+    for (auto color : m_partitions) {
+        for (auto node : *color) {
+            if (node != nullptr) {
+                delete node;
+                node = nullptr;
+            }
+        }
+        if (color != nullptr) {
+            delete color;
+            color = nullptr;
+        }
+    }
+}
 
 template <typename T>
-std::list<std::forward_list<Node<T> *> *> Coloration<T>::get_partitions() {
+std::list<std::list<Node<T> *> *> Coloration<T>::get_partitions() {
     return m_partitions;
 }
 
@@ -32,8 +45,8 @@ int Coloration<T>::get_chromatic_number() {
 template <typename T>
 bool Coloration<T>::add_node(int color, Node<T> *node) {
     if (chromatic_number <= color) {
-        std::forward_list<Node<T> *> *new_color =
-            new std::forward_list<Node<T> *>();
+        std::list<Node<T> *> *new_color =
+            new std::list<Node<T> *>();
         new_color->push_front(node);
         m_partitions.push_back(new_color);
         ++chromatic_number;

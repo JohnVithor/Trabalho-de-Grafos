@@ -22,7 +22,17 @@ Node<T>::Node(T *m_type) {
 }
 
 template <typename T>
-Node<T>::~Node() {}
+Node<T>::~Node() {
+    delete m_type;
+    m_type = nullptr;
+    /*
+    for (auto node : neighbors) {
+        if (node != nullptr) {
+            delete node;
+        }
+    }
+    */
+}
 
 template <typename T>
 int Node<T>::set_color() {

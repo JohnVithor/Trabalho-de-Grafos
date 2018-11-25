@@ -34,7 +34,7 @@ class Coloration {
     Coloration<T> &operator=(const Coloration<T> &) = default;
     ~Coloration();
 
-    std::list<std::forward_list<Node<T> *> *> get_partitions();
+    std::list<std::list<Node<T> *> *> get_partitions();
     int get_chromatic_number();
     void print();
     bool add_node(int color, Node<T> *node);
@@ -44,8 +44,7 @@ class Coloration {
     }
 
    private:
-    // Graph *m_graph = nullptr;
-    std::list<std::forward_list<Node<T> *> *> m_partitions;
+    std::list<std::list<Node<T> *> *> m_partitions;
     int chromatic_number = 0;
 };
 
