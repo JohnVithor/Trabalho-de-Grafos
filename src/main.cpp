@@ -31,7 +31,7 @@ int main(int argc, char const *argv[]) {
         return -1;
     }
     std::string archive(argv[1]);
-    GraphReader gr("Casos de testes para coloração/optimal_coloring.txt");
+    GraphReader gr("Test_cases/optimal_coloring.txt");
 
     auto g = gr.get_graph(archive);
     if (g != nullptr) {
