@@ -68,6 +68,12 @@ int main(int argc, char **argv) {
             default:
                 abort();
         }
+
+    std::size_t pos = i_file.find("/");
+    std::string name = i_file.substr(pos + 1);
+    pos = name.find(" ");
+    name = name.substr(0, pos);
+
     if (o_file != "") {
         std::ofstream output_file;
         output_file.open(o_file);
@@ -96,13 +102,12 @@ int main(int argc, char **argv) {
         }
         if (m_flag) {
             *saida << c->get_chromatic_number() << ";"
-                   << gr.get_optimal_coloring_number("myciel3.col");
+                   << gr.get_optimal_coloring_number(name);
         } else {
             *saida << "Número Cromático Encontrado: "
                    << c->get_chromatic_number() << std::endl
                    << "Número Cromático Ótimo: "
-                   << gr.get_optimal_coloring_number("myciel3.col")
-                   << std::endl;
+                   << gr.get_optimal_coloring_number(name) << std::endl;
         }
         return 0;
     }
