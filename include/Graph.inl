@@ -217,7 +217,7 @@ bool Graph<T>::edge_exists(T *m_type1, T *m_type2) {
 
 template <typename T>
 int Graph<T>::get_size() {
-    return m_size;
+    return m_size/2;
 }
 
 template <typename T>
