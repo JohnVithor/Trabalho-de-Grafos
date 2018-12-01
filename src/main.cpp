@@ -13,6 +13,8 @@
 
 #include <unistd.h>
 #include <iostream>
+#include <chrono>
+
 #include "Graph.hpp"
 #include "GraphReader.hpp"
 
@@ -95,7 +97,28 @@ int main(int argc, char **argv) {
             *saida << "Arquivo: " << i_file << " carregado." << std::endl;
         }
 
+        // Calculando o tempo
+        double av_time = 0;
+        auto start = std::chrono::steady_clock::now();
+
         auto c = g->get_coloration();
+
+        auto end = std::chrono::steady_clock::now();
+        auto diff = end -start;
+        auto time = std::chrono::duration <double, std::milli> (diff).count();
+        av_time += time;
+
+        int count = 20;
+        /*for (int i = 1; i < count; ++i)
+        {
+            g->erase_coloration();
+            start = std::chrono::steady_clock::now();            
+            c = g->get_coloration();
+            end = std::chrono::steady_clock::now();
+            diff = end -start;
+            time = std::chrono::duration <double, std::milli> (diff).count();
+            av_time += ((time - av_time)/(i+1));
+        }*/
 
         if (s_flag) {
             g->print_colors(saida);
