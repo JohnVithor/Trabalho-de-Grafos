@@ -318,26 +318,6 @@ Coloration<T> *Graph<T>::dsatur() {
 }
 
 template <typename T>
-Node<T> *Graph<T>::get_greatest_degree_not_colored() {
-    bool flag = false;
-    Node<T> *great = m_data.front();
-    if (great->get_color() == -1) {
-        flag = true;
-    }
-    for (auto node : m_data) {
-        if (flag && node->get_color() == -1) {
-            great = node;
-            flag = false;
-        }
-        if (node->get_color() == -1 &&
-            node->get_degree() > great->get_degree()) {
-            great = node;
-        }
-    }
-    return great;
-}
-
-template <typename T>
 Node<T> *Graph<T>::get_greatest_degree() {
     Node<T> *great = m_data.front();
     for (auto node : m_data) {
