@@ -54,6 +54,7 @@ int Node<T>::set_color() {
 template <typename T>
 bool Node<T>::erase_color() {
     this->color = -1;
+    dsat.clear();
     return true;
 }
 

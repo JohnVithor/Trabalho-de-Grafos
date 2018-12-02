@@ -12,8 +12,8 @@
  */
 
 #include <unistd.h>
-#include <iostream>
 #include <chrono>
+#include <iostream>
 
 #include "Graph.hpp"
 #include "GraphReader.hpp"
@@ -99,26 +99,18 @@ int main(int argc, char **argv) {
 
         // Calculando o tempo
         double av_time = 0;
-        auto start = std::chrono::steady_clock::now();
-
-        auto c = g->get_coloration();
-
-        auto end = std::chrono::steady_clock::now();
-        auto diff = end -start;
-        auto time = std::chrono::duration <double, std::milli> (diff).count();
-        av_time += time;
-
         int count = 20;
-        /*for (int i = 1; i < count; ++i)
-        {
+        for (int i = 1; i < count; ++i) {
             g->erase_coloration();
-            start = std::chrono::steady_clock::now();            
-            c = g->get_coloration();
-            end = std::chrono::steady_clock::now();
-            diff = end -start;
-            time = std::chrono::duration <double, std::milli> (diff).count();
-            av_time += ((time - av_time)/(i+1));
-        }*/
+            auto start = std::chrono::steady_clock::now();
+            g->get_coloration();
+            auto end = std::chrono::steady_clock::now();
+            auto diff = end - start;
+            auto time = std::chrono::duration<double, std::milli>(diff).count();
+            av_time += time;
+        }
+        av_time = av_time / count;
+        Coloration<Integer> *c = g->get_coloration();
 
         if (s_flag) {
             g->print_colors(saida);
@@ -128,8 +120,10 @@ int main(int argc, char **argv) {
             std::cerr << "Coloração inválida encontrada!" << std::endl
                       << "Arquivo: " << i_file << std::endl;
         }
+        // Tamanho;Tempo DSATUR;DSATUR;Otimo;Networkx
         if (m_flag) {
-            *saida << c->get_chromatic_number() << ";"
+            *saida << g->get_size() << ";" << (int)av_time << ";"
+                   << c->get_chromatic_number() << ";"
                    << gr.get_optimal_coloring_number(name);
         } else {
             *saida << "Número Cromático Encontrado: "

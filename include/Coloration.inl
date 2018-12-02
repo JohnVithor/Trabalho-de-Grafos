@@ -19,12 +19,7 @@ Coloration<T>::Coloration() {}
 template <typename T>
 Coloration<T>::~Coloration() {
     for (auto color : m_partitions) {
-        for (auto node : *color) {
-            if (node != nullptr) {
-                delete node;
-                node = nullptr;
-            }
-        }
+        color->clear();
         if (color != nullptr) {
             delete color;
             color = nullptr;
