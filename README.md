@@ -30,6 +30,14 @@ Esse programa irá gerar no arquivo resultado.csv os seguintes campos nessa orde
 - Número cromático: o número cromático encontrado
 - Número cromático ótimo: o número cromático mínimo
 
+## Testes
+
+Para rodar os testes execute o script:
+
+`./testes.sh`
+
+Os resultados dos testes são salvos no arquivo _resultados.csv_
+
 ## Resultado
 
 Para visualizar o resultado obtido como exemplo temos o arquivo `Sigraade.py` com uma interface ncurses que mostra os conjuntos de disciplinas obtidos.
