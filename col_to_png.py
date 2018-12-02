@@ -24,7 +24,7 @@ def ler_grafo(arquivo):
 
     return G
 
-def let_coloracao(arquivo):
+def ler_coloracao(arquivo):
     arq = open(arquivo, 'r')
     texto = arq.readlines()
     C = dict()
@@ -41,7 +41,7 @@ def let_coloracao(arquivo):
     return C
 
 g = ler_grafo(sys.argv[1])
-r = let_coloracao(sys.argv[2])
+r = ler_coloracao(sys.argv[2])
 
 maximum = max(r, key=r.get)
 colors = dict()
@@ -50,5 +50,9 @@ for i in range(int(r[maximum])+1):
 co = [ (colors[str(r[i])]) for i in list(g.nodes())]
 
 nx.draw_kamada_kawai(g, node_color=co)
-#nx.draw(g, node_size=20, node_color=co)
-plt.savefig("grafo colorido")
+plt.savefig("grafo colorido1")
+
+plt.clf()
+
+nx.draw(g, node_size=20, node_color=co)
+plt.savefig("grafo colorido2")
