@@ -30,6 +30,7 @@ def ler_coloracao(arquivo):
     C = dict()
     for linha in texto:
         if(linha == "\n"):
+            arq.close()
             return C
         
         linha = linha.replace("\n", "")
